@@ -1,8 +1,11 @@
-package com.example.springBoot322Java17GradleGroovy.repository;
+package com.example.springboot322java17gradlegroovy.repository;
 
-import com.example.springBoot322Java17GradleGroovy.entity.Article;
+import com.example.springboot322java17gradlegroovy.entity.Article;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ArticleRepository extends CrudRepository<Article, Long> {
+import java.util.ArrayList;
 
+public interface ArticleRepository extends CrudRepository<Article,Long> {
+    @Override
+    ArrayList<Article> findAll();
 }

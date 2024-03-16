@@ -1,9 +1,6 @@
 package com.example.springBoot322Java17GradleGroovy.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +14,7 @@ import lombok.ToString;
 public class Article {
     
     @Id//대표값 지정 PK
-    @GeneratedValue//자동 생성 어노테이션
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//자동 생성 전략
     private Long id;
     
     @Column//칼럼 필드 선언

@@ -17,7 +17,7 @@ public class CommentRepositoryTest {
     @Autowired
     CommentRepository commentRepository;
     @Test
-    @DisplayName("특정 게스글의 모든 댓글 조회")
+    @DisplayName("특정 게시글의 모든 댓글 조회")
     void findByArticleId() {
         /* Case 1: 4번 게시글의 모든 댓글 조회 */
         {

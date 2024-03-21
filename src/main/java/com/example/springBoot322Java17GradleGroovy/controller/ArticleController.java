@@ -1,8 +1,10 @@
 package com.example.springBoot322Java17GradleGroovy.controller;
 
 import com.example.springBoot322Java17GradleGroovy.dto.ArticleForm;
+import com.example.springBoot322Java17GradleGroovy.dto.CommentDto;
 import com.example.springBoot322Java17GradleGroovy.entity.Article;
 import com.example.springBoot322Java17GradleGroovy.repository.ArticleRepository;
+import com.example.springBoot322Java17GradleGroovy.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,9 @@ public class ArticleController {
 
     @Autowired//스프링 부트가 미리 생성해 놓은 객체를 가져다가 자동 연결
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/articles/new")
     public String newArticleForm(){
@@ -43,14 +48,16 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{id}")//해당 URL요청을 처리 선언
-    public String show(@PathVariable Long id, Model model) {//URL에서 id를 변수로 가져옴
+    public String show(@PathVariable("id") Long id, Model model) {//URL에서 id를 변수로 가져옴
         log.info("id = " + id);
 
         //1. id로 데이터를 가져옴
         Article articleEntity = articleRepository.findById(id).orElse(null);
+        List<CommentDto> commentDtos = commentService.comments(id);
 
         //2. 가져온 데이터를 모델에 등록
         model.addAttribute("article", articleEntity);
+        model.addAttribute("commentDtos", commentDtos);
 
         //3. 보여줄 페이지를 설정
         return "articles/show";

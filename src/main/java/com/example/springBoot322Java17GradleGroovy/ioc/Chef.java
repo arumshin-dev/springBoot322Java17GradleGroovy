@@ -1,5 +1,8 @@
 package com.example.springBoot322Java17GradleGroovy.ioc;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Chef {
     private IngredientFactory ingredientFactory;
     public Chef(IngredientFactory ingredientFactory) {

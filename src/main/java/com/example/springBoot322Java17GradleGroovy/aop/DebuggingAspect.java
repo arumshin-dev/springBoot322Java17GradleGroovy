@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class DebuggingAspect {
 
-    @Pointcut("execution(* com.example.springBoot322Java17GradleGroovy.service.CommentService.create(..))")
+    @Pointcut("execution(* com.example.springBoot322Java17GradleGroovy.service.CommentService.*(..))")
     private void cut() {}
 
     @Before("cut()")

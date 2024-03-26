@@ -2,6 +2,7 @@ package com.example.springBoot322Java17GradleGroovy.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -30,5 +31,19 @@ public class DebuggingAspect {
         for (Object obj : args) {
             log.info("{}#{}의 입력값 => {}", className, methodName, obj);
         }
+    }
+
+    @AfterReturning(value = "cut()", returning = "returnObj")
+    public void loggingReturnValue(JoinPoint joinPoint,
+                                   Object returnObj) {
+        // 클래스명
+        String className = joinPoint.getTarget()
+                .getClass()
+                .getSimpleName();
+        // 메소드명
+        String methodName = joinPoint.getSignature()
+                .getName();
+        // 반환값 로깅
+        log.info("{}#{}의 반환값 => {}", className, methodName, returnObj);
     }
 }

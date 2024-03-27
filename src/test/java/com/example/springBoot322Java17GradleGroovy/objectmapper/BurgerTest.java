@@ -27,4 +27,21 @@ public class BurgerTest {
         JsonNode jsonNode = objectMapper.readTree(json);
         System.out.println(jsonNode.toPrettyString());
     }
+
+    @Test
+    public void JSON을_자바_객체로_변환() throws JsonProcessingException {
+        // 준비
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = "{\"name\":\"맥도날드 슈비버거\",\"price\":5500,\"ingredients\":[\"통새우 패티\",\"순쇠고기 패티\",\"토마토\",\"스파이시 어니언 소스\"]}";
+        // 수행
+        Burger burger = objectMapper.readValue(json, Burger.class);
+        // 예상
+        List<String> ingredients = Arrays.asList("통새우 패티", "순쇠고기 패티", "토마토", "스파이시 어니언 소스");
+        Burger expected = new Burger("맥도날드 슈비버거", 5500, ingredients);
+        // 검증
+        assertEquals(expected.toString(), burger.toString());
+        JsonNode jsonNode = objectMapper.readTree(json);
+        System.out.println(jsonNode.toPrettyString());
+        System.out.println(burger.toString());
+    }
 }

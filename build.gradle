@@ -24,10 +24,30 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//Mustache template engine
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// MySQL 커넥터 의존성 추가
+	implementation 'mysql:mysql-connector-java:8.0.29'
+	// JWT API 의존성 추가
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	// JWT 구현체 의존성 추가
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	// JWT Jackson 구현체 의존성 추가
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	// SpringDoc OpenAPI WebMVC UI 스타터 의존성 추가
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+	implementation 'javax.annotation:javax.annotation-api:1.3.2'
+
+	//JSP support
+	// https://backendcode.tistory.com/121#google_vignette
+//	implementation 'javax.servlet:jstl'
+//	implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
+//	implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '3.0.0'
+	//출처: https://fntg.tistory.com/251 [From Novice To Guru:티스토리]
 }
 
 tasks.named('test') {

@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     //mapper xml
     Optional<UserEntity> findByUserIdAndPassword(String userId, String password);//쿼리
+    Optional<UserEntity> findByUserId(String userId);
 }

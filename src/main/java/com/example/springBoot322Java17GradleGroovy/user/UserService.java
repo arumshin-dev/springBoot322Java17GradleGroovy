@@ -13,14 +13,21 @@ public class UserService {
 
     public UserEntity login(String userId, String password) {
 
-        String encPassword = HashUtil.hash(password);//암호화 패스워드 SHA-512
-        System.out.println(encPassword);
+//        String encPassword = HashUtil.hash(password);//암호화 패스워드 SHA-512
+//        System.out.println(encPassword);
+//        String saltPassword = HashUtil.hashWithGeneratedSalt(password);
+//        System.out.println(saltPassword);//+salt
         UserEntity userEntity = new UserEntity();
-        Optional<UserEntity> optionalUserEntity = userRepository.findByUserIdAndPassword(userId, encPassword);//쿼리 호출
+        Optional<UserEntity> optionalUserEntity = userRepository.findByUserId(userId);//쿼리 호출
         if (optionalUserEntity.isPresent()) {
             userEntity = optionalUserEntity.get();
-            return userEntity;
-        }else {
+            boolean pwChk = HashUtil.verifyHash(password, userEntity.getPassword());
+            if (pwChk) {//로그인 성공
+                return userEntity;
+            }else {//비밀번호가 일치하지 않음
+                return null;
+            }
+        }else {//일치하는 사용자 없음
             return null;
         }
     }

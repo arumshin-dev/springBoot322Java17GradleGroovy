@@ -1,6 +1,7 @@
 package com.example.springBoot322Java17GradleGroovy.user;
 
 import com.example.springBoot322Java17GradleGroovy.config.JwtUtil;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +21,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private View error;
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(
@@ -90,23 +94,28 @@ public class UserController {
     }
 
     @GetMapping("/test")
-    public String test(HttpServletRequest request) {
-        Map<String, Object> resultMap = new HashMap<>();
+    public ResponseEntity<String> test(HttpServletRequest request) {
         // JWT 토큰 검증 시작
         String authorizationHeader = request.getHeader("Authorization"); // 요청 헤더에서 Authorization 헤더 값을 가져옴
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) { // Authorization 헤더가 없거나 Bearer로 시작하지 않으면
-            return "";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authorization 헤더가 없거나 잘못되었습니다."); // 401 Unauthorized 응답
         }
+
         String jwtToken = authorizationHeader.substring(7); // "Bearer " 다음의 토큰 부분만 추출
-        boolean tokenChk = JwtUtil.validateToken(jwtToken);
-        if(tokenChk) {
+        boolean tokenChk;
+        try {
+            tokenChk = JwtUtil.validateToken(jwtToken); // 토큰을 검증
+        } catch (ExpiredJwtException e) { // 토큰 만료 시 예외 처리
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 만료되었습니다.다시 로그인해 주세요."); // 401 Unauthorized 응답
+        } catch (Exception e) { // 기타 예외 처리
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 토큰입니다."); // 401 Unauthorized 응답
+        }
+
+        if (tokenChk) {
             String userId = JwtUtil.getUserIdFromToken(jwtToken); // 토큰에서 사용자 ID를 추출
-            System.out.println("jwtToken: " + jwtToken);
-            System.out.println("tokenChk: " + tokenChk);
-            System.out.println("userId: " + userId);
-            return userId;
-        }else{
-            return "토큰 만료";
+            return ResponseEntity.ok(userId); // 정상적으로 사용자 ID를 반환
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 만료되었습니다. <br> 다시 로그인해 주세요."); // 401 Unauthorized 응답
         }
     }
 

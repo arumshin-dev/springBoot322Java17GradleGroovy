@@ -2,8 +2,6 @@ let indexUserCheck = {
     timerInterval: null,
     accessToken: null,
     refreshToken: null,
-    contentDiv: document.getElementById('content'),
-
     init() {
         this.loginCheck();
     },
@@ -17,7 +15,7 @@ let indexUserCheck = {
         this.accessToken = localStorage.getItem('accessToken');
         if (!this.accessToken) {
             // accessToken이 없을 때 로그인 페이지로 이동하는 버튼 제공
-            this.contentDiv.innerHTML = this.contentLogin;
+            $('#content').html(this.contentLogin);
         } else {
             // accessToken이 있을 때 사용자 정보를 가져옴
             fetch('/api/v1/user/test', {
@@ -42,11 +40,11 @@ let indexUserCheck = {
                     }
                 })
                 .then(data => {
-                    this.contentDiv.innerHTML = `<p>환영합니다, ${data}님!</p>
+                    $('#content').html(`<p>환영합니다, ${data}님!</p>
                         <p id="timer">30:00</p>
                         <button type="button" class="btn btn-warning w-100" onclick="indexUserCheck.logout()">Logout</button>
                         <button type="button" class="btn btn-success mt-2 w-100" onclick="indexUserCheck.updateAccessToken()">연장</button>
-                    `;
+                    `);
                     this.initializeTimer();
                 })
                 .catch(error => {
@@ -143,7 +141,6 @@ let indexUserCheck = {
                 clearInterval(this.timerInterval);
                 localStorage.clear();
                 indexUserCheck.timerInterval = null;
-                //this.contentDiv.innerHTML = this.contentLogin;
                 this.loginCheck();
                 showToast("토큰이 만료되었습니다.");
                 return;
@@ -151,7 +148,7 @@ let indexUserCheck = {
 
             const minutes = Math.floor(timeLeft / (1000 * 60));
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+            $('#timer').text(`${minutes}:${seconds < 10 ? '0' + seconds : seconds}`);
         };
 
         this.timerInterval = setInterval(updateTimer, 1000);

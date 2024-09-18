@@ -10,7 +10,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_sq")
-    private long userSq;
+    private Long userSq;
 
     @Column(name = "user_id", length = 30)
     private String userId;
@@ -21,11 +21,11 @@ public class UserEntity {
     @Column(name = "email", length = 50)
     private String email;
 
-    public long getUserSq() {
+    public Long getUserSq() {
         return userSq;
     }
 
-    public void setUserSq(long userSq) {
+    public void setUserSq(Long userSq) {
         this.userSq = userSq;
     }
 

@@ -48,6 +48,9 @@ dependencies {
 //	implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
 //	implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '3.0.0'
 	//출처: https://fntg.tistory.com/251 [From Novice To Guru:티스토리]
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	// 공백 체크 및 각종 체크를 도와주는 어노테이션을 사용할 수 있게 해주는 Dependency
 }
 
 tasks.named('test') {

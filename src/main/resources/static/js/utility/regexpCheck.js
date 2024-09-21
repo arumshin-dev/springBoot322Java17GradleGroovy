@@ -1,7 +1,8 @@
 function regCheck(obj, type) {
     let _obj = obj[0];
     let _korNm = _obj.alt;
-    let _length = _obj.maxLength;
+    let _minLength = _obj.minLength;
+    let _maxLength = _obj.maxLength;
     const blankRegExp = /\s/;
     /*받침 있으면 / 받침 없음
     은/는
@@ -15,8 +16,13 @@ function regCheck(obj, type) {
         obj.focus();
         return false;
     }
-    if(obj.val().length > _length) {
-        showToast(_korNm + (df === 0 ? '는' : '은') + " " + _length + "자 이내로 입력해주세요.");
+    if(obj.val().length < _minLength) {
+        showToast(_korNm + (df === 0 ? '는' : '은') + " " + _minLength + "자 이상 입력해주세요.");
+        obj.focus();
+        return false; // 검증 실패 시 false 반환
+    }
+    if(obj.val().length > _maxLength) {
+        showToast(_korNm + (df === 0 ? '는' : '은') + " " + _maxLength + "자 이내로 입력해주세요.");
         obj.focus();
         return false; // 검증 실패 시 false 반환
     }

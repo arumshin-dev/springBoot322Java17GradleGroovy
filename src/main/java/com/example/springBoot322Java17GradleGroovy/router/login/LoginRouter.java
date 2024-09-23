@@ -18,4 +18,10 @@ public class LoginRouter {
         model.addAttribute("pageTitle","Join Page");
         return "join";
     }
+
+    @GetMapping("/lgn")
+    public String lgn(Model model) {
+        model.addAttribute("pageTitle", "Login Page");
+        return "lgn";//templates/lgn.mustache
+    }
 }

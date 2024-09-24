@@ -94,7 +94,7 @@ body {
     height: 60px;
     width: 60px;
 }
-.signup form button[type="button"] {
+.signup form button[type="submit"] {
     color: #333aa5;
 }
 /*toggle link*/
@@ -137,4 +137,9 @@ body {
     font-size: 3rem;
     display: block;
     color: #fff;
+}
+#btnJoin:disabled {
+    background-color: #d3d3d3; /* 회색으로 배경 색상 변경 */
+    color: #808080; /* 텍스트 색상도 회색으로 변경 */
+    cursor: not-allowed; /* 마우스 커서를 '금지' 모양으로 변경 */
 }

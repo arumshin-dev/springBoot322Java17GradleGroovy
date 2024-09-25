@@ -2,6 +2,7 @@ let indexUserCheck = {
     timerInterval: null,
     accessToken: null,
     refreshToken: null,
+
     init() {
         this.loginCheck();
     },
@@ -29,7 +30,7 @@ let indexUserCheck = {
                     if (response.ok) {
                         return response.text();
                         //     } else if (response.status === 401) {
-                        //         this.contentDiv.innerHTML = this.contentLogin;
+                        //         $('#content').html(this.contentLogin);
                         //         return response.text().then((errorMessage) => {
                         //             localStorage.clear();
                         //             showToast(errorMessage);
@@ -54,11 +55,11 @@ let indexUserCheck = {
     },
 
     redirectToLogin() {
-        window.location.href = '/login';
+        window.location.href = '/lgn';
     },
 
     redirectToJoin() {
-        window.location.href = '/join';
+        window.location.href = '/lgn';
     },
 
     logout() {
@@ -82,7 +83,7 @@ let indexUserCheck = {
                     localStorage.clear();
                     clearInterval(indexUserCheck.timerInterval);
                     indexUserCheck.timerInterval = null;
-                    this.loginCheck();
+                    this.redirectToLogin();
                 }
             })
             .catch(error => {
@@ -111,7 +112,7 @@ let indexUserCheck = {
                 if (data) {
                     localStorage.setItem('accessToken', data.accessToken);
                     this.accessToken = data.accessToken;
-                    showToast("토큰이 갱신되었습니다.", 'text-success');
+                    showToast("토큰이 갱신되었습니다.",'text-success');
                     this.initializeTimer();
                 }
             })
@@ -141,6 +142,7 @@ let indexUserCheck = {
                 clearInterval(this.timerInterval);
                 localStorage.clear();
                 indexUserCheck.timerInterval = null;
+                //$('#content').html(this.contentLogin);
                 this.loginCheck();
                 showToast("토큰이 만료되었습니다.");
                 return;

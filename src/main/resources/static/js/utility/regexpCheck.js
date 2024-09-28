@@ -10,24 +10,24 @@ function regCheck(obj, type) {
     을/를
     과/와*/
     let df = hangeulCheck(_korNm);
-
+    console.log(_minLength);
     if(!obj.val()) {
-        showToast(_korNm + (df === 0 ? '를' : '을') + " 입력해주세요.");
+        showToast(_korNm + (df === 0 ? '를' : '을') + " 입력해주세요.",'WARNING');
         obj.focus();
         return false;
     }
     if(obj.val().length < _minLength) {
-        showToast(_korNm + (df === 0 ? '는' : '은') + " " + _minLength + "자 이상 입력해주세요.");
+        showToast(_korNm + (df === 0 ? '는' : '은') + " " + _minLength + "자 이상 입력해주세요.",'WARNING');
         obj.focus();
         return false; // 검증 실패 시 false 반환
     }
     if(obj.val().length > _maxLength) {
-        showToast(_korNm + (df === 0 ? '는' : '은') + " " + _maxLength + "자 이내로 입력해주세요.");
+        showToast(_korNm + (df === 0 ? '는' : '은') + " " + _maxLength + "자 이내로 입력해주세요.",'WARNING');
         obj.focus();
         return false; // 검증 실패 시 false 반환
     }
     if(blankRegExp.test(obj.val())){
-        showToast(_korNm + "에 공백을 넣을 수 없습니다.");
+        showToast(_korNm + "에 공백을 넣을 수 없습니다.",'WARNING');
         obj.focus();
         return false; // 검증 실패 시 false 반환
     }
@@ -55,7 +55,7 @@ function regCheck(obj, type) {
         regExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i; // 이메일 체크
         msg = _korNm + (df === 0 ? '는' : '은') +" 이메일 형식에 일치하지 않습니다.";
     }else if(type === "pwd") {
-        regExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{1,10}$/; // 패스워드 체크(대소문자숫자특문 다 포함)
+        regExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,30}$/; // 패스워드 체크(대소문자숫자특문 다 포함)
         msg = _korNm + (df === 0 ? '는' : '은') + " 영문 대문자, 소문자, 숫자, 특수문자가 각각 1개씩 포함되어야합니다.";
     }else if(type === "none") {
         nonCheck = true;
@@ -65,7 +65,7 @@ function regCheck(obj, type) {
         if(!regExp.test(obj.val())) {
             obj.val("")
             obj.focus();
-            showToast(msg);
+            showToast(msg,'WARNING');
             return false;
         }
     }

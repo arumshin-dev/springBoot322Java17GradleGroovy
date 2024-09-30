@@ -8,7 +8,7 @@ public class SpringBoot322Java17GradleGroovyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBoot322Java17GradleGroovyApplication.class, args);
-		System.out.println("Hello World!");
+		System.out.println("실행완료!");
 	}
 
 }

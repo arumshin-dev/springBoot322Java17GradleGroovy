@@ -70,7 +70,7 @@ public class ArticleController {
         // 2: 가져온 Article 묶음을 뷰로 전달!
         model.addAttribute("articleList", articleEntityList);
         // 3: 뷰 페이지를 설정!
-        return "articles/index";
+        return "articles/index";//http://localhost:8080/articles
     }
 
     @GetMapping("articles/{id}/edit")

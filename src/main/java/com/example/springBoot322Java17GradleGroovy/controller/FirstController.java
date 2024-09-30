@@ -11,12 +11,13 @@ public class FirstController {
     @GetMapping("/hi")
     public String niceToMeetYou(Model model){
         model.addAttribute("userName","arum");
-        return "greetings";//templates/greetings.mistache
+        return "greetings";//templates/greetings.mustache
     }
 
     @GetMapping("/bye")
     public String seeYouNext(Model model){
         model.addAttribute("nickName","arumi");
-        return "goodbye";//templates/greetings.mistache
+        return "goodbye";//templates/goodbye.mustache
     }
+
 }

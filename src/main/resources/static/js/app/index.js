@@ -17,6 +17,7 @@ let indexUserCheck = {
                 <span id="timer">30:00</span>
                 <button type="button" class="btn btn-warning" onclick="indexUserCheck.logout()">Logout</button>
                 <button type="button" class="btn btn-success" onclick="indexUserCheck.updateAccessToken()">연장</button>
+                <a style="font-size:30px;" onclick="indexUserCheck.redirectToMyPage()"> <i class="fa fa-user-circle-o"></i> </a>
             `;
         } else {
             // 로그인이 안 된 상태일 때 (로그인, 조인 버튼)
@@ -56,6 +57,9 @@ let indexUserCheck = {
         }
     },
 
+    redirectToMyPage() {
+        window.location.href = '/mypage';
+    },
     redirectToLogin() {
         window.location.href = '/lgn';
     },

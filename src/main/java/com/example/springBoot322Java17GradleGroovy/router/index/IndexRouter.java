@@ -17,6 +17,7 @@ public class IndexRouter {
     @GetMapping("/mypage")
     public String mypage(Model model) {
         model.addAttribute("pageTitle", "My Page");
+
         return "mypage";//templates/mypage.mustache
     }
 }

@@ -28,7 +28,7 @@ let userInfo = {
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <button type="button" class="btn btn-warning" onclick="changePassword()">비밀번호 변경</button>
+                        <button type="button" class="btn btn-warning" onclick="userInfo.changePassword()">비밀번호 변경</button>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -71,5 +71,13 @@ let userInfo = {
                 })
                 .catch(error => console.error('Error:', error));
     },
+
+    changePassword() {
+        document.getElementById('passwordPopup').style.display = 'block';
+    },
+
+    closePopup() {
+        document.getElementById('passwordPopup').style.display = 'none';
+    }
 };
 document.addEventListener('DOMContentLoaded', () => myPage.init());
